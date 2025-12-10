@@ -1,0 +1,52 @@
+# Конфигурация SLAM Toolbox для робо-тележки
+# Режим: Online Async (синхронный SLAM для картографирования в реальном времени)
+
+slam_toolbox:
+  ros__parameters:
+
+    # Режим работы (online_async для картографирования в реальном времени)
+    mode: mapping
+
+    # Базовые параметры
+    odom_frame: odom
+    map_frame: map
+    base_frame: base_footprint
+    scan_topic: /scan
+    use_map_saver: true
+    
+    # Частота обновления (10 Hz для соответствия LIDAR)
+    transform_publish_period: 0.1  # 10 Hz
+    map_update_interval: 1.0
+    
+    # Параметры разрешения
+    resolution: 0.05  # 5 см на пиксель
+    
+    # Параметры сканирования
+    throttle_scans: 1
+    minimum_travel_distance: 0.2  # м
+    minimum_travel_heading: 0.2   # рад
+    scan_buffer_size: 10
+    scan_buffer_maximum_scan_distance: 10.0
+    link_match_minimum_response_fine: 0.1  
+    link_scan_maximum_distance: 1.5
+    loop_search_maximum_distance: 3.0
+    do_loop_closing: true 
+    loop_match_minimum_chain_size: 10           
+    loop_match_maximum_variance_coarse: 3.0  
+    loop_match_minimum_response_coarse: 0.35    
+    loop_match_minimum_response_fine: 0.45
+    
+    # Параметры корреляции
+    correlation_search_space_dimension: 0.5
+    correlation_search_space_resolution: 0.01
+    correlation_search_space_smear_deviation: 0.1 
+    
+    # Оптимизация loop closure
+    optimize_every_n_nodes: 20
+    
+    # Параметры поиска совпадений
+    coarse_search_angle_offset: 0.349  # ~20 градусов
+    coarse_angle_resolution: 0.0349    # ~2 градуса
+    minimum_angle_penalty: 0.9
+    minimum_distance_penalty: 0.5
+    use_response_expansion: true

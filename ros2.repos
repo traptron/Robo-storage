@@ -1,0 +1,48 @@
+repositories:
+  # SLAM Toolbox для ROS2 Jazzy
+  slam_toolbox:
+    type: git
+    url: https://github.com/SteveMacenski/slam_toolbox.git
+    version: jazzy
+
+  # Navigation2 для ROS2 Jazzy
+  navigation2:
+    type: git
+    url: https://github.com/ros-planning/navigation2.git
+    version: jazzy
+
+  # RPLIDAR драйвер для ROS2
+  rplidar_ros:
+    type: git
+    url: https://github.com/Slamtec/rplidar_ros.git
+    version: ros2
+
+  # micro-ROS setup для ESP32
+  micro_ros_setup:
+    type: git
+    url: https://github.com/micro-ROS/micro_ros_setup.git
+    version: jazzy
+
+  # ros2_control для управления приводами
+  ros2_control:
+    type: git
+    url: https://github.com/ros-controls/ros2_control.git
+    version: jazzy
+
+  # ros2_controllers для дифференциального привода
+  ros2_controllers:
+    type: git
+    url: https://github.com/ros-controls/ros2_controllers.git
+    version: jazzy
+
+  # Gazebo для симуляции
+  gazebo_ros_pkgs:
+    type: git
+    url: https://github.com/ros-simulation/gazebo_ros_pkgs.git
+    version: jazzy
+
+  # robot_localization для sensor fusion
+  robot_localization:
+    type: git
+    url: https://github.com/cra-ros-pkg/robot_localization.git
+    version: jazzy

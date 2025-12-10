@@ -1,0 +1,32 @@
+# Конфигурация RPLIDAR A2M8 для ROS2
+# Документация: https://github.com/Slamtec/rplidar_ros
+
+# Порт последовательного соединения (измените на ваш)
+serial_port: /dev/ttyUSB0
+
+# Скорость передачи данных (для A2M8 стандартная 115200)
+serial_baudrate: 115200
+
+# Имя frame для LIDAR (должно совпадать с URDF)
+frame_id: lidar_link
+
+# Инвертировать направление сканирования
+inverted: false
+
+# Угловая компенсация (рекомендуется true для лучшей точности)
+angle_compensate: true
+
+# Частота сканирования (для A2M8: 5-15 Hz, мы выбрали 10Hz)
+scan_frequency: 10.0
+
+# Режим сканирования (для A2M8 используется стандартный режим)
+scan_mode: Standard
+
+# QoS настройки для топика /scan
+qos_overrides:
+  /scan:
+    publisher:
+      reliability: best_effort
+      durability: volatile
+      history: keep_last
+      depth: 10

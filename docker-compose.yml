@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  robo-storage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: robo-storage:jazzy-latest
+    container_name: robo-storage-dev
+    
+    # Использовать GPU (если требуется)
+    # runtime: nvidia
+    # environment:
+    #   - NVIDIA_VISIBLE_DEVICES=all
+    
+    # Интерактивный режим
+    stdin_open: true
+    tty: true
+    
+    # Переменные окружения
+    environment:
+      - ROS_DOMAIN_ID=42
+      - ROS_LOCALHOST_ONLY=1
+      - DISPLAY=${DISPLAY}
+    
+    # Монтирование локальных папок
+    volumes:
+      # Рабочее пространство ROS2
+      - ./src:/root/robo_ws/src
+      - ./build:/root/robo_ws/build
+      - ./install:/root/robo_ws/install
+      - ./log:/root/robo_ws/log
+      
+      # X11 для GUI приложений (Linux)
+      # - /tmp/.X11-unix:/tmp/.X11-unix
+      # - ~/.Xauthority:/root/.Xauthority:ro
+    
+    # Сеть
+    networks:
+      - robo-network
+    
+    # Привилегии для USB (для LIDAR и ESP32)
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyUSB1:/dev/ttyUSB1
+    
+    # Рабочая директория
+    working_dir: /root/robo_ws
+    
+    # Команда для запуска
+    command: bash -c "source ~/.bashrc && echo 'Robo-Storage container started' && /bin/bash"
+
+  # Опционально: сервис для Gazebo симуляции
+  gazebo:
+    image: gazebo:latest
+    container_name: gazebo-sim
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/root/.Xauthority:ro
+    networks:
+      - robo-network
+    stdin_open: true
+    tty: true
+
+networks:
+  robo-network:
+    driver: bridge

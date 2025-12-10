@@ -1,0 +1,8 @@
+<library path="robo_hardware_system_interface">
+  <class name="robo_hardware/RoboHardwareInterface" type="robo_hardware::RoboHardwareInterface" base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Hardware интерфейс для робо-тележки с дифференциальным приводом.
+      Поддерживает работу через micro-ROS (ESP32) и симуляцию в Gazebo.
+    </description>
+  </class>
+</library>

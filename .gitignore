@@ -1,0 +1,39 @@
+# ROS2 build artifacts
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Bag files
+*.bag
+*.db3
+
+# Gazebo
+*.log
+
+# ESP32 firmware build
+firmware/**/build/
+firmware/**/.pio/
+firmware/**/.vscode/
+
+# Временные файлы
+*.tmp
+*.bak
