@@ -242,9 +242,9 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 ## 📧 Контакты
 
-- **Email**: your-email@example.com
-- **Telegram**: @your_username
-- **GitHub Issues**: [Создать issue](https://github.com/your-username/Robo-storage/issues)
+- **Email**: trapmpage@gmail.com
+- **Telegram**: @trapmpage
+- **GitHub Issues**: [Создать issue](https://github.com/traptron/Robo-storage/issues)
 
 ---
 
