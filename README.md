@@ -13,7 +13,7 @@
 ### Ключевые особенности
 
 - 🤖 **Автономная навигация** — SLAM Toolbox + Nav2
-- 💰 **Низкая стоимость** — ESP32 + RPLIDAR A2M8 (~$350 на робота)
+- 💰 **Низкая стоимость** — ESP32 + LIDAR от робота-пылесоса (LDS-01/02) (~$150-200 на робота)
 - ⚡ **Высокая производительность** — дифференциальный привод, скорость до 0.5 м/с
 - 🔧 **Модульность** — легко масштабируется и адаптируется
 - 🐍 **Гибкость разработки** — C++ для критичных частей, Python для логики
@@ -45,7 +45,7 @@ Robo-storage/
 |-----------|-----------|
 | **ROS2** | Jazzy (LTS) |
 | **Контроллер** | ESP32 + micro-ROS |
-| **LIDAR** | RPLIDAR A2M8 (10Hz, 16м дальность) |
+| **LIDAR** | LDS (робот-пылесос, например LDS-01/02), опционально RPLIDAR |
 | **SLAM** | SLAM Toolbox (sync mode) |
 | **Навигация** | Nav2 (SMAC Planner + Regulated Pure Pursuit) |
 | **Симуляция** | Gazebo Classic |
@@ -119,6 +119,12 @@ ros2 launch robo_bringup simulation.launch.py
 
 # В другом терминале: управление клавиатурой
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+# Запуск на железе с LDS (по умолчанию)
+ros2 launch robo_bringup robot.launch.py serial_port:=/dev/ttyUSB0 lidar_type:=lds
+
+# Если используете RPLIDAR
+ros2 launch robo_bringup robot.launch.py serial_port:=/dev/ttyUSB0 lidar_type:=rplidar
 ```
 
 ## 🔧 Прошивка ESP32
@@ -183,12 +189,12 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 ## 🛠️ Аппаратное обеспечение
 
-### Робо-тележка (примерная стоимость: $350)
+### Робо-тележка (примерная стоимость: $230-260)
 
 | Компонент | Модель | Цена (USD) |
 |-----------|--------|------------|
 | Контроллер | ESP32 DevKit v1 | $5 |
-| LIDAR | RPLIDAR A2M8 | $220 |
+| LIDAR | LDS-01/02 (робот-пылесос) | $80-120 |
 | Моторы | 2x DC мотор с энкодером | $40 |
 | Драйвер моторов | L298N или BTS7960 | $10 |
 | Шасси | Алюминиевая платформа | $30 |

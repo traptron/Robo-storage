@@ -1,6 +1,7 @@
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 import os
@@ -41,7 +42,9 @@ def generate_launch_description():
             'serial_port': LaunchConfiguration('serial_port'),
         }],
         output='screen',
-        condition=lambda context: context.launch_configurations['use_sim'] == 'false'
+        condition=IfCondition(PythonExpression([
+            "'", LaunchConfiguration('use_sim'), "' == 'false'"
+        ]))
     )
     
     return LaunchDescription([

@@ -3,13 +3,14 @@
 <package format="3">
   <name>robo_sensors</name>
   <version>0.1.0</version>
-  <description>Пакет для управления датчиками (RPLIDAR, IMU)</description>
+  <description>Пакет для управления датчиками (LIDAR от робота-пылесоса, RPLIDAR, IMU)</description>
   <maintainer email="your-email@example.com">Robo-Storage Team</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <exec_depend>rplidar_ros</exec_depend>
+  <exec_depend>hls_lfcd_lds_driver</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
 

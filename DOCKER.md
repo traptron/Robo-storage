@@ -62,6 +62,8 @@ devices:
   - /dev/ttyUSB1:/dev/ttyUSB1
 ```
 
+Если используете LDS от робота-пылесоса (hls_lfcd_lds_driver), оставьте один порт `/dev/ttyUSB0`.
+
 **На Windows/Mac с Docker Desktop:**
 ```bash
 # Включить доступ к USB в Docker Desktop Settings

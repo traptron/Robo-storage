@@ -1,7 +1,8 @@
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -31,7 +32,13 @@ def generate_launch_description():
     serial_port = DeclareLaunchArgument(
         'serial_port',
         default_value='/dev/ttyUSB0',
-        description='Порт для подключения RPLIDAR'
+        description='Порт для подключения LIDAR'
+    )
+
+    lidar_type = DeclareLaunchArgument(
+        'lidar_type',
+        default_value='lds',
+        description='Тип LIDAR: lds (робот-пылесос) или rplidar'
     )
     
     # Robot State Publisher
@@ -46,7 +53,24 @@ def generate_launch_description():
         }]
     )
     
-    # RPLIDAR launch
+    # LIDAR от робота-пылесоса (LDS)
+    lds_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                robo_sensors_pkg,
+                'launch',
+                'lds.launch.py'
+            ])
+        ]),
+        launch_arguments={
+            'serial_port': LaunchConfiguration('serial_port'),
+        }.items(),
+        condition=IfCondition(PythonExpression([
+            "'", LaunchConfiguration('lidar_type'), "' == 'lds'"
+        ]))
+    )
+
+    # RPLIDAR launch (fallback)
     rplidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([
@@ -58,7 +82,10 @@ def generate_launch_description():
         launch_arguments={
             'serial_port': LaunchConfiguration('serial_port'),
             'use_sim': 'false'
-        }.items()
+        }.items(),
+        condition=IfCondition(PythonExpression([
+            "'", LaunchConfiguration('lidar_type'), "' == 'rplidar'"
+        ]))
     )
     
     # SLAM Toolbox
@@ -75,7 +102,9 @@ def generate_launch_description():
     
     return LaunchDescription([
         serial_port,
+        lidar_type,
         robot_state_publisher,
+        lds_launch,
         rplidar_launch,
         slam_toolbox,
     ])

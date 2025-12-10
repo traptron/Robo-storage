@@ -1,0 +1,16 @@
+# Конфигурация LDS (LIDAR от робота-пылесоса, например LDS-01/02)
+# Драйвер: hls_lfcd_lds_driver (тот же, что используется в TurtleBot3)
+
+port: /dev/ttyUSB0
+frame_id: lidar_link
+
+# Частота вращения (обычно 5-10 Hz), по умолчанию драйвер управляет сам
+angle_compensate: true
+
+qos_overrides:
+  /scan:
+    publisher:
+      reliability: best_effort
+      durability: volatile
+      history: keep_last
+      depth: 10
